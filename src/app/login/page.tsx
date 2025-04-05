@@ -63,7 +63,7 @@ function Login() {
       const res = await axios.post('/api/users/login', formData); // replace with your actual API route
       if(res.success=true && res.status===200){
         setLoading(false)
-        toast.success("User Login Sucessfully")
+        toast.success("User Login Sucessfully",{duration:2200})
           console.log('Signed up successfully:', res.data);
         setTimeout(()=>{
             router.push('/profile'); // navigate to login or dashboard
@@ -73,7 +73,7 @@ function Login() {
     } catch (error: any) {
         const message = error.response?.data?.error || "Something Went Wrong "
         setLoading(false)
-        toast.error(message)
+        toast.error(message,{duration:2200})
       console.error('Sign up error:', error.response?.data || error.message);    }
   };
 
