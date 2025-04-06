@@ -3,9 +3,31 @@ import Link from 'next/link';
 import axios from "axios"
 import { useRouter } from 'next/navigation';
 import {toast, Toaster} from "sonner"
+import { useEffect ,useState} from 'react';
 
 export default function Profile() {
   const router = useRouter()
+const [user,setUser] = useState({
+  username: "xyz",
+  userID:123,
+})
+  useEffect(()=>{
+const getUser = async () => {
+  try {
+const user = await axios.get("/api/users/getUser")
+// console.log(user)
+const { username, _id } = user.data.user;
+
+setUser({
+  username: username,
+  userID: _id,
+});  }
+  catch (error) {
+    
+  }
+}
+getUser()
+  },[])
 
   const handleLogout = async () => {
     // Add your logout logic here
@@ -39,6 +61,7 @@ if(res.status===200){
                   Settings
                 </Link>
               </nav>
+              <span className='text-black'>Welcome :  {user.username}</span>
             </div>
             <button
               onClick={handleLogout}
